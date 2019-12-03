@@ -43,8 +43,9 @@ while encrypt_string(password)!=hashed_password:
     password = getpass('Password:')
     test2 = True
 test = False
-crypted_program = base64.b64decode(b"{}")
-program = zlib.decompress(pms_decrypt(crypted_program,password.encode('utf-8'))).decode('utf-8')
+crypted_program = base64.b64decode(b\"\"\"{}\"\"\")
+#program = zlib.decompress(pms_decrypt(crypted_program,password.encode('utf-8'))).decode('utf-8')
+program = pms_decrypt(crypted_program,password.encode('utf-8')).decode('utf-8')
 exec(program)
 """
 if len(argv)<3:
@@ -61,7 +62,8 @@ else:
 
 encoded = ""
 with open(argv[1],'r') as file:
-    encoded = base64.b64encode(pms_crypt(zlib.compress(file.read().encode('utf-8')),password.encode('utf-8'))).decode('utf-8')
+    # encoded = base64.b64encode(pms_crypt(zlib.compress(file.read().encode('utf-8')),password.encode('utf-8'))).decode('utf-8')
+    encoded = base64.b64encode(pms_crypt(file.read().encode('utf-8'),password.encode('utf-8'))).decode('utf-8')
 with open(argv[2],'w') as file:
     file.write(base_program.format(encrypt_string(password),encoded))
 print('Everything is okay enjoy')
